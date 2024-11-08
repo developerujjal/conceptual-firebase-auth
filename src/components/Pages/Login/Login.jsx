@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../AuthenticationContext/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const Login = () => {
 
-    const { loginUser } = useContext(AuthContext)
+    const { loginUser, user } = useContext(AuthContext)
     const navigate = useNavigate()
+    const location = useLocation()
 
     const handleSignIn = (e) => {
         e.preventDefault()
@@ -24,6 +25,12 @@ const Login = () => {
                 console.error(error)
             })
     }
+
+    useEffect(() => {
+        if (user) {
+            navigate(location.state)
+        }
+    }, [user, navigate, location.state])
 
 
 
