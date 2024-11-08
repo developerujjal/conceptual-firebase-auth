@@ -1,15 +1,28 @@
+import { useContext } from "react";
+import { AuthContext } from "../../AuthenticationContext/AuthProvider";
 
 const SignUp = () => {
 
-    const handleSignUp = (e)=>{
+    const {createNewUser} = useContext(AuthContext)
+
+    const handleSignUp = (e) => {
         e.preventDefault()
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(name, email, password)
+
+        createNewUser(email, password)
+            .then(userCredential => {
+                const user = userCredential.user;
+                console.log(user)
+            })
+            .catch(error => {
+                console.error(error)
+            })
     }
 
-    
+
     return (
         <div className="font-[sans-serif] relative">
             <div className="h-[240px] font-[sans-serif]">
@@ -17,9 +30,9 @@ const SignUp = () => {
             </div>
 
             <div className="relative -mt-40 m-4">
-                <form 
-                onSubmit={handleSignUp}
-                className="bg-white max-w-xl w-full mx-auto shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] p-8 rounded-2xl">
+                <form
+                    onSubmit={handleSignUp}
+                    className="bg-white max-w-xl w-full mx-auto shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] p-8 rounded-2xl">
                     <div className="mb-12">
                         <h3 className="text-gray-800 text-3xl font-bold text-center">Register</h3>
                     </div>

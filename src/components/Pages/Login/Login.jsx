@@ -1,12 +1,26 @@
+import { useContext } from "react";
+import { AuthContext } from "../../AuthenticationContext/AuthProvider";
 
 const Login = () => {
 
-    const handleSignIn = (e)=>{
+    const { loginUser } = useContext(AuthContext)
+
+    const handleSignIn = (e) => {
         e.preventDefault()
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password)
+
+        loginUser(email, password)
+            .then(userCredential => {
+                const user = userCredential.user;
+                console.log(user)
+            })
+            .catch(error => {
+                console.error(error)
+            })
     }
+
 
 
     return (
@@ -16,10 +30,10 @@ const Login = () => {
                     <img src="https://readymadeui.com/image-3.webp" className="w-full h-full object-cover" alt="login-image" />
                 </div>
 
-                <form 
-                onSubmit={handleSignIn}
-                
-                className="max-w-xl w-full p-6 mx-auto">
+                <form
+                    onSubmit={handleSignIn}
+
+                    className="max-w-xl w-full p-6 mx-auto">
                     <div className="mb-12">
                         <h3 className="text-gray-800 text-4xl font-extrabold">Sign in</h3>
                         <p className="text-gray-800 text-sm mt-6">Dont have an account <a className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</a></p>

@@ -1,6 +1,20 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../AuthenticationContext/AuthProvider";
 
 const Header = () => {
+    const { user, userLogOut } = useContext(AuthContext)
+
+    const handleLogOut = () => {
+        userLogOut()
+            .then(() => {
+                alert("Sign-out successful.")
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }
+
     return (
         <header className='flex shadow-md py-4 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[70px] tracking-wide relative z-50'>
             <div className='flex flex-wrap items-center justify-between gap-5 w-full'>
@@ -49,9 +63,22 @@ const Header = () => {
                 </div>
 
                 <div className='flex max-lg:ml-auto space-x-3'>
-                    <Link
-                        to={'/login'}
-                        className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>Login</Link>
+
+                    {
+                        user ?
+                            <>
+                                <p>{user?.email}</p>
+                                <button
+                                    onClick={handleLogOut}
+                                    className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>LogOut</button>
+                            </> :
+
+                            <Link
+                                to={'/login'}
+                                className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>Login</Link>
+                    }
+
+
                     <Link
                         to={'/signup'}
                         className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>Sign
