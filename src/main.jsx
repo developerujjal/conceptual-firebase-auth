@@ -10,6 +10,8 @@ import Home from './components/Pages/Home/Home.jsx';
 import Login from './components/Pages/Login/Login.jsx';
 import SignUp from './components/Pages/SignUp/SignUp.jsx';
 import AuthProvider from './components/AuthenticationContext/AuthProvider.jsx';
+import Profile from './components/Pages/Profile/Profile.jsx';
+import Protectedroutes from './components/ProtectedRoutes/Protectedroutes.jsx';
 
 const router = createBrowserRouter(
   [
@@ -28,6 +30,10 @@ const router = createBrowserRouter(
         {
           path: 'signup',
           element: <SignUp />
+        },
+        {
+          path: 'profile',
+          element: <Protectedroutes><Profile /></Protectedroutes>
         }
       ]
     }

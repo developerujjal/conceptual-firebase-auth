@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../AuthenticationContext/AuthProvider";
 
 const Header = () => {
@@ -41,8 +41,9 @@ const Header = () => {
                             </a>
                         </li>
                         <li className='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
-                            <a
-                                className='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>Home</a>
+                            <NavLink
+                                to={'/'}
+                                className='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>Home</NavLink>
                         </li>
                         <li className='max-lg:border-b border-gray-300 max-lg:py-3 px-3'><a
                             className='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Team</a>
@@ -56,9 +57,15 @@ const Header = () => {
                         <li className='max-lg:border-b border-gray-300 max-lg:py-3 px-3'><a
                             className='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>About</a>
                         </li>
-                        <li className='max-lg:border-b border-gray-300 max-lg:py-3 px-3'><a
-                            className='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Contact</a>
-                        </li>
+
+                        {
+                            user && (
+                                <li className='max-lg:border-b border-gray-300 max-lg:py-3 px-3'><NavLink
+                                    to={'/profile'}
+                                    className='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Profile</NavLink>
+                                </li>
+                            )
+                        }
                     </ul>
                 </div>
 
